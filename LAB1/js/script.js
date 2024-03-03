@@ -26,6 +26,7 @@ function triangle( value1 , type1 , value2 ,  type2 ){
   const validTypes = ["leg", "hypotenuse","adjacent angle","opposite angle", "angle"];
 
 
+
   if (!validTypes.includes(type1) || !validTypes.includes(type2)) {
 
     console.log("You inputed incorrect types.Please reread the instructions and enter the correct types.");
@@ -60,7 +61,7 @@ function triangle( value1 , type1 , value2 ,  type2 ){
     return "The angles of the triangle must be acute";
   
   }
-  if (value1 <= 0 || value2 <= 0) {
+  if ((value1 <= 0 && typeof value1 === "number") || (value2 <= 0 && typeof value2 === "number")) {
 
     console.log("Zero or negative values.");
     return "failed";
@@ -83,16 +84,16 @@ switch(type1){
 
         b = value2;
         c = Math.sqrt(a ** 2 + b ** 2);
-        alpha = toDegrees(Math.atan(a / b));
-        beta = toDegrees(Math.atan(b / a));
+        alpha = toDegrees(Math.asin(a / c));
+        beta = 90 - alpha;
 
         break;
 
       case "hypotenuse" : 
         c = value2;
         b = Math.sqrt(c ** 2 - a ** 2);
-        alpha = toDegrees(Math.atan(a / b));
-        beta = toDegrees(Math.atan(b / a));
+        alpha = toDegrees(Math.asin(a / c));
+        beta = 90 - alpha;
 
         break;
 
@@ -122,29 +123,38 @@ switch(type1){
   case "hypotenuse" :
 
     c = value1;
-    if(type2 == "angle"){ 
+    if(type2 === "angle"){ 
      
       alpha = value2;
       a = c * Math.sin(alpha * (Math.PI / 180));
       b = Math.sqrt(c ** 2 - a ** 2);
       beta = 90 - alpha;
     }
-    else if(type2 == "leg"){ 
+    else if(type2 === "leg"){ 
 
       a = value2;
       b = Math.sqrt(c ** 2 - a ** 2);
-      alpha = toDegrees(Math.atan(a / b));
-      beta = toDegrees(Math.atan(b / a));
+      alpha = toDegrees(Math.asin(a / c));
+      beta = 90 - alpha;
     }
     break;
     
   case "adjacent angle" : 
 
-    if(type2 =="leg"){
-        a = value2 , beta = value1;
-        c = a / Math.cos(beta * (Math.PI / 180));
-        b = a * Math.tan(beta * (Math.PI / 180));
-        alpha = 90 - beta;
+    if(type2 ==="leg"){
+        alpha = value1;
+        a = value2;
+        c = a / Math.cos(alpha * (Math.PI / 180));
+        b = Math.sqrt(c * c - a * a);
+        beta = 90 - alpha;
+    }
+    else if(type2 === "hypotenuse"){ 
+      alpha = value1;
+      c = value2;
+      a = c * Math.sin(alpha * (Math.PI / 180));
+      b = Math.sqrt(c ** 2 - a ** 2);
+      alpha = toDegrees(Math.asin(a / c));
+      beta = 90 - alpha;
     }
     break;
 
@@ -155,6 +165,13 @@ switch(type1){
         c = a / Math.sin(alpha * (Math.PI / 180));
         b = Math.sqrt(c ** 2 - a ** 2);
         beta = 90 - alpha;
+    }
+    else if(type2 === "hypotenuse"){ 
+      alpha = value1;
+      c = value2;
+      a = c * Math.cos(alpha * (Math.PI / 180));
+      b = Math.sqrt(c ** 2 - a ** 2);
+      beta = 90 - alpha;
     }
       break;
 
@@ -174,11 +191,11 @@ switch(type1){
 
 }
 
-  if (a + b < c && a + c < b && c + b < a) {
+  if (!(a + b > c && a + c > b && c + b > a)) {
     return "The sum of two sides less any side of the triangle .Calculations are impossible";
   }
 
-  if (alpha > 90 || beta > 90) {
+  if ( (alpha >= 90 && alpha === 0) || ( beta >= 90 && beta ===0) ){
     return "The angles of the triangle must be acute";
   }
 
