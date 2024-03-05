@@ -1,10 +1,8 @@
-const SpeakGoodBye = (function () {    
+(function (window) {
+  const SpeakGoodBye = {};
   const speakWord = "Good Bye";
-
-  function speak(name) {
+  SpeakGoodBye.speak = function (name) {
     console.log(speakWord + " " + name);
-  }
-  return {
-    speak 
   };
-})(); 
+  window.SpeakGoodBye = SpeakGoodBye;
+})(window);
