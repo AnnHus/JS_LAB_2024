@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorna 4</title>
+</head>
+<body>
+    <form id="myForm" style="display: flex; margin: 50px 10px ;gap: 20px;  margin-bottom: 20px; font-size: large; font-family: 'Courier New', Courier, monospace;">
+        <label> Type :</label>
+       <input type="radio" id="sparseArr" name="Type" >
+         <label for="sparseArr">Sparse array</label>
+         <input type="radio" id="array" name="Type" >  
+            <label for="array">Array</label>
+           
+        </form>
+    <form id="myForm2" style="display: flex; margin: 50px 10px ;gap: 20px;  margin-bottom: 20px; font-size: large; font-family: 'Courier New', Courier, monospace;">
+        <label>Sort by :</label>
+        <input type="radio" id="asc" name="Type" >
+          <label for="asc">Ascending</label>
+          <input type="radio" id="desc" name="Type" >  
+             <label for="desc">Descending</label>
+             </form>
+
+
+            <button id="sort-button">Sort Array</button>
+            <div id="result"></div>
+    <script src="SortArray.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
